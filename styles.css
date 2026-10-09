@@ -1,0 +1,165 @@
+/* Site do RCP Flow: mesmas cores e fontes do app (src/theme/index.ts). */
+@font-face { font-family: Geist; font-weight: 400; font-display: swap; src: url(fonts/Geist_400Regular.ttf) format('truetype'); }
+@font-face { font-family: Geist; font-weight: 600; font-display: swap; src: url(fonts/Geist_600SemiBold.ttf) format('truetype'); }
+@font-face { font-family: Geist; font-weight: 700; font-display: swap; src: url(fonts/Geist_700Bold.ttf) format('truetype'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 600; font-display: swap; src: url(fonts/GeistMono_600SemiBold.ttf) format('truetype'); }
+
+:root {
+  color-scheme: light;
+  --bg: #eff5fd;
+  --surface: #ffffff;
+  --surface2: #e8edf5;
+  --line: #cdd3db;
+  --text: #12161b;
+  --muted: #565b62;
+  --green: #008660;
+  --green-ink: #ffffff;
+  --green-text: #247356;
+  --red: #d50022;
+  --red-text: #b0282c;
+  --orange-text: #90511f;
+  --blue: #006fd7;
+  --blue-text: #2063b0;
+  --track: #dfe5ed;
+  --measure: 34rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0c0f12;
+    --surface: #121519;
+    --surface2: #1b1e23;
+    --line: #292d31;
+    --text: #eef2f8;
+    --muted: #a7abb1;
+    --green: #51d2a2;
+    --green-ink: #0d0f0e;
+    --green-text: #66dfaf;
+    --red: #f0726b;
+    --red-text: #f1b2ac;
+    --orange-text: #f1b58d;
+    --blue: #7aaef0;
+    --blue-text: #a7c7f1;
+    --track: #22262a;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.6 Geist, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--blue-text); text-underline-offset: 0.18em; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+.mono { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.wrap { width: min(72rem, 100% - 2.5rem); margin-inline: auto; }
+
+/* Cabeçalho */
+.top { padding-block: 1.25rem; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { display: flex; align-items: center; gap: 0.7rem; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; }
+.brand img { width: 2.25rem; height: 2.25rem; border-radius: 0.6rem; }
+.brand span { color: var(--green-text); }
+.top nav { display: flex; gap: 1.25rem; font-size: 0.95rem; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--text); }
+
+/* Abertura: o ciclo de 2 minutos */
+.hero { padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 8vw, 6rem); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.hero h1 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.6rem, 7vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  max-width: 11ch;
+}
+.hero p { margin: 0 0 2rem; font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--muted); max-width: var(--measure); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3.25rem; padding: 0 1.4rem; border-radius: 1rem;
+  font-weight: 700; font-size: 1.05rem; text-decoration: none;
+}
+.btn-primary { background: var(--green); color: var(--green-ink); }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.btn:hover { filter: brightness(0.96); }
+
+.cycle { position: relative; width: min(100%, 22rem); aspect-ratio: 1; margin-inline: auto; }
+.cycle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.cycle .track { stroke: var(--track); }
+.cycle .arc { stroke: var(--green); stroke-linecap: round; }
+.cycle .readout { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 0.25rem; }
+.cycle .caption { font-size: 0.85rem; font-weight: 600; color: var(--green-text); letter-spacing: 0.08em; }
+.cycle .clock { font-size: clamp(3.4rem, 9vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; }
+.cycle .beat { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; color: var(--muted); font-size: 0.95rem; }
+.cycle .dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--green); }
+@media (prefers-reduced-motion: no-preference) {
+  .cycle .dot { animation: beat 545.45ms ease-out infinite; }
+}
+@keyframes beat { 0% { opacity: 1; transform: scale(1.25); } 60%, 100% { opacity: 0.35; transform: scale(1); } }
+
+/* Uma parada, como o app registra */
+section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+section h2 { margin: 0 0 0.75rem; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1; letter-spacing: -0.025em; max-width: 20ch; }
+section .lead { margin: 0 0 2.5rem; color: var(--muted); max-width: var(--measure); font-size: 1.1rem; }
+.band { background: var(--surface); border-block: 1px solid var(--line); }
+
+.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1.25rem; padding-block: 1.1rem; border-top: 1px solid var(--line); }
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.timeline time { font-size: 1.15rem; color: var(--muted); padding-top: 0.1rem; }
+.timeline h3 { margin: 0 0 0.2rem; font-size: 1.15rem; line-height: 1.3; }
+.timeline p { margin: 0; color: var(--muted); max-width: var(--measure); }
+.timeline .shock time, .timeline .shock h3 { color: var(--red-text); }
+.timeline .drug time, .timeline .drug h3 { color: var(--orange-text); }
+.timeline .rhythm time, .timeline .rhythm h3 { color: var(--blue-text); }
+.timeline .end time, .timeline .end h3 { color: var(--green-text); }
+
+.phone { margin: 0; border-radius: 2.2rem; padding: 0.55rem; background: var(--text); box-shadow: 0 1.5rem 3rem -1.5rem rgb(18 22 27 / 0.45); position: sticky; top: 1.5rem; }
+.phone img { border-radius: 1.75rem; width: 100%; }
+.phone figcaption { color: var(--bg); font-size: 0.85rem; text-align: center; padding: 0.6rem 0.4rem 0.3rem; opacity: 0.85; }
+
+.also { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2rem 3rem; margin: 0; }
+.also div { border-top: 3px solid var(--green); padding-top: 0.9rem; }
+.also dt { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
+.also dd { margin: 0; color: var(--muted); }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.split .phone { position: static; max-width: 18rem; margin-inline: auto; }
+
+.install { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+.install article { background: var(--surface); border: 1px solid var(--line); border-radius: 1.25rem; padding: 1.4rem 1.5rem; }
+.install h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.install p { margin: 0; color: var(--muted); }
+
+.notice { border-left: 4px solid var(--blue); padding: 0.25rem 0 0.25rem 1.1rem; color: var(--muted); max-width: var(--measure); }
+
+/* Rodapé */
+footer { padding-block: 2.5rem 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: start; }
+footer nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+footer p { margin: 0 0 0.35rem; }
+
+/* Páginas de texto (privacidade, termos) */
+.doc { padding-block: 2rem 4rem; }
+.doc .wrap { max-width: 44rem; }
+.doc h1 { font-size: clamp(2rem, 5vw, 2.75rem); letter-spacing: -0.03em; line-height: 1.1; margin: 1rem 0 0.5rem; }
+.doc .updated { color: var(--muted); margin: 0 0 2.5rem; }
+.doc h2 { font-size: 1.3rem; margin: 2.25rem 0 0.5rem; letter-spacing: -0.01em; }
+.doc p, .doc li { color: var(--text); max-width: var(--measure); }
+.doc li + li { margin-top: 0.35rem; }
+
+@media (max-width: 52rem) {
+  .hero .wrap, .story, .split, footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero .cycle { order: -1; width: min(70%, 16rem); }
+  .phone { position: static; max-width: 18rem; margin-inline: auto; }
+  .top nav { display: none; }
+}

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RCP Flow · apoio e registro durante a parada cardiorrespiratória</title>
+<meta name="description" content="O RCP Flow acompanha a equipe durante a parada cardiorrespiratória: marca os ciclos de 2 minutos, lembra o que vem a seguir e registra tudo, seguindo a AHA 2025.">
+<link rel="icon" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#008660">
+<link rel="preload" href="fonts/Geist_700Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="img/apple-touch-icon.png" alt="">RCP <span>Flow</span></a>
+    <nav aria-label="Seções">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#instalar">Instalar</a>
+      <a href="privacidade.html">Privacidade</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Dois minutos de cada vez.</h1>
+        <p>O RCP Flow acompanha a equipe durante a parada cardiorrespiratória: marca os ciclos, lembra o que vem a seguir e registra tudo, seguindo as diretrizes AHA 2025.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
+          <a class="btn btn-secondary" href="#instalar">Instalar no celular</a>
+        </div>
+      </div>
+
+      <div class="cycle" role="img" aria-label="Cronômetro do ciclo: checar o ritmo em 2 minutos, metrônomo em 110 compressões por minuto">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="track" cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
+          <circle class="arc" id="arc" cx="100" cy="100" r="88" fill="none" stroke-width="12" stroke-dasharray="552.92" stroke-dashoffset="165.9"/>
+        </svg>
+        <div class="readout" aria-hidden="true">
+          <span class="caption">CHECAR RITMO EM</span>
+          <span class="clock mono" id="clock">1:24</span>
+          <span class="beat"><span class="dot"></span><span class="mono">110</span>/min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="band" id="como-funciona">
+    <div class="wrap story">
+      <div>
+        <h2>Uma parada, do jeito que o app registra</h2>
+        <p class="lead">A equipe toca em botões grandes; o app cuida do tempo, dos lembretes e da anotação de cada evento.</p>
+        <ol class="timeline">
+          <li><time class="mono">0:00</time><div><h3>Início da RCP</h3><p>O cronômetro do ciclo começa e o metrônomo marca o ritmo das compressões, de 100 a 120 por minuto.</p></div></li>
+          <li class="rhythm"><time class="mono">0:20</time><div><h3>Checagem de ritmo: FV</h3><p>Ao marcar um ritmo chocável, aparece o botão de choque com a energia já preenchida. Na linha reta, o app pede para conferir cabos, ganho e derivação.</p></div></li>
+          <li class="shock"><time class="mono">0:23</time><div><h3>Choque 200 J</h3><p>Registrado com um toque. Tocou por engano? Dá para desfazer em até 15 segundos.</p></div></li>
+          <li class="drug"><time class="mono">1:15</time><div><h3>Adrenalina 1 mg</h3><p>O app avisa, com som e voz, quando considerar cada droga, com a dose padrão. No pediátrico, calculada pelo peso.</p></div></li>
+          <li class="rhythm"><time class="mono">2:00</time><div><h3>Fim do ciclo</h3><p>O anel avisa a próxima checagem e sugere quem assume as compressões, pelo rodízio da equipe.</p></div></li>
+          <li class="end"><time class="mono">Fim</time><div><h3>Resumo da parada</h3><p>Fração de compressão, gráfico das pausas, choques e drogas, relatório em PDF e resumo em texto para o WhatsApp.</p></div></li>
+        </ol>
+      </div>
+      <figure class="phone">
+        <picture>
+          <source srcset="img/checagem-dark.png" media="(prefers-color-scheme: dark)">
+          <img src="img/checagem-light.png" width="780" height="1688" alt="Tela da checagem de ritmo: FV/TVSP marcada e o botão vermelho de choque 200 J">
+        </picture>
+        <figcaption>Checagem de ritmo com choque indicado</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Feito para a equipe inteira</h2>
+      <p class="lead">Do treino com manequim ao relatório para o debriefing.</p>
+      <dl class="also">
+        <div><dt>Equipe na tela inicial</dt><dd>Líder, via aérea, compressores, monitor, acesso e registro, com os nomes preenchidos antes de começar.</dd></div>
+        <div><dt>Algoritmo à mão</dt><dd>Esquema do ACLS e do PALS mostrando em que passo a parada está, para conferir o que o app sugere.</dd></div>
+        <div><dt>Hs e Ts</dt><dd>Causas reversíveis com pistas, condutas e as drogas de cada uma, com a dose do paciente.</dd></div>
+        <div><dt>Modo instrutor</dt><dd>Cenários de treino com monitor simulado e a nota da equipe ao final.</dd></div>
+        <div><dt>Funciona sem internet</dt><dd>Depois de aberto uma vez, o app funciona no subsolo, no elevador e na ambulância.</dd></div>
+        <div><dt>Adulto e pediátrico</dt><dd>Doses e energias do pediátrico calculadas pelo peso, com os limites máximos.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <h2>Os dados ficam no seu celular</h2>
+        <p class="lead">O RCP Flow não tem cadastro nem login e não envia nada para servidores. Não pede nome nem documento do paciente. O relatório só sai do aparelho quando você decide compartilhar.</p>
+        <p><a href="privacidade.html">Ler a política de privacidade</a></p>
+      </div>
+      <figure class="phone">
+        <picture>
+          <source srcset="img/resumo-dark.png" media="(prefers-color-scheme: dark)">
+          <img src="img/resumo-light.png" width="780" height="1688" alt="Resumo da parada com fração de compressão de 99%, gráfico da parada e equipe">
+        </picture>
+        <figcaption>Resumo e gráfico ao final da parada</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="instalar">
+    <div class="wrap">
+      <h2>Instalar no celular</h2>
+      <p class="lead">Enquanto o app não chega às lojas, use a versão para navegador e coloque o ícone na tela de início.</p>
+      <div class="install">
+        <article><h3>iPhone</h3><p>Abra <a href="https://rcp-flow.expo.app">rcp-flow.expo.app</a> no Safari, toque em Compartilhar e depois em Adicionar à Tela de Início.</p></article>
+        <article><h3>Android</h3><p>Abra <a href="https://rcp-flow.expo.app">rcp-flow.expo.app</a> no Chrome, toque nos três pontinhos e depois em Adicionar à tela inicial.</p></article>
+        <article><h3>Passo a passo ilustrado</h3><p><a href="rcp-flow-como-instalar.pdf">Baixar o guia em PDF</a>, com as telas do iPhone e do Android e um QR code do endereço.</p></article>
+      </div>
+      <p class="notice">O RCP Flow é uma ferramenta de apoio e registro. Os lembretes são sugestões e não substituem o julgamento clínico da equipe.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><strong>RCP Flow</strong> · JMLJR SERVICOS MEDICOS LTDA</p>
+      <p>Contato: <a href="mailto:contato@rcpflow.com.br">contato@rcpflow.com.br</a></p>
+    </div>
+    <nav aria-label="Rodapé">
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html">Termos de uso</a>
+      <a href="https://rcp-flow.expo.app">Abrir o app</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Um ciclo de 2 minutos em contagem regressiva, como o anel do app. Parado em 1:24 para quem pede menos movimento.
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var arc = document.getElementById('arc');
+    var clock = document.getElementById('clock');
+    var total = 120, circ = 552.92, start = performance.now() - 36000;
+    function frame(now) {
+      var left = total - ((now - start) / 1000) % total;
+      var s = Math.ceil(left);
+      clock.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+      arc.setAttribute('stroke-dashoffset', (circ * (1 - left / total)).toFixed(1));
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
+</body>
+</html>
