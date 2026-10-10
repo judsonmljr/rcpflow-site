@@ -208,7 +208,7 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 
 /* Fecho */
 .close { padding-block: clamp(5rem, 11vw, 9rem); border-top: 1px solid var(--line); }
-.close h2 { font-size: clamp(2.6rem, 6.2vw, 6rem); letter-spacing: -0.04em; max-width: 12ch; margin-bottom: 2rem; }
+.close h2 { font-size: clamp(2.6rem, 6.2vw, 6rem); letter-spacing: -0.04em; max-width: 22ch; text-wrap: balance; margin-bottom: 2rem; }
 .disclaimer { margin: 3rem 0 0; color: var(--ink-2); font-size: 0.92rem; max-width: 34rem; }
 
 /* Rodapé */
