@@ -1,4 +1,6 @@
-/* Site do RCP Flow: mesmas cores e fontes do app (src/theme/index.ts). */
+/* Site do RCP Flow: mesmas cores e fontes do app (src/theme/index.ts).
+   Cantos: botões 14px, blocos 20px, moldura do celular 36px. Uma cor de destaque (verde); azul, vermelho e
+   laranja só nas funções do app (ritmo, choque, drogas). */
 @font-face { font-family: Geist; font-weight: 400; font-display: swap; src: url(fonts/Geist_400Regular.ttf) format('truetype'); }
 @font-face { font-family: Geist; font-weight: 600; font-display: swap; src: url(fonts/Geist_600SemiBold.ttf) format('truetype'); }
 @font-face { font-family: Geist; font-weight: 700; font-display: swap; src: url(fonts/Geist_700Bold.ttf) format('truetype'); }
@@ -15,13 +17,19 @@
   --green: #008660;
   --green-ink: #ffffff;
   --green-text: #247356;
+  --green-tint: #e2f3eb;
   --red: #d50022;
   --red-text: #b0282c;
   --orange-text: #90511f;
   --blue: #006fd7;
   --blue-text: #2063b0;
   --track: #dfe5ed;
+  --frame: #12161b;
+  --frame-ink: #eef2f8;
+  --shadow: 0 1.5rem 3rem -1.5rem rgb(28 52 84 / 0.35);
   --measure: 34rem;
+  --r-btn: 14px;
+  --r-block: 20px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -35,86 +43,129 @@
     --green: #51d2a2;
     --green-ink: #0d0f0e;
     --green-text: #66dfaf;
+    --green-tint: #11251e;
     --red: #f0726b;
     --red-text: #f1b2ac;
     --orange-text: #f1b58d;
     --blue: #7aaef0;
     --blue-text: #a7c7f1;
     --track: #22262a;
+    --frame: #30353b;
+    --frame-ink: #c9ced5;
+    --shadow: 0 1.5rem 3rem -1.5rem rgb(0 0 0 / 0.6);
   }
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5rem; -webkit-tap-highlight-color: transparent; }
+a, button { touch-action: manipulation; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font: 400 1.0625rem/1.6 Geist, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--blue-text); text-underline-offset: 0.18em; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
 .mono { font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 600; font-variant-numeric: tabular-nums; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
 
 .wrap { width: min(72rem, 100% - 2.5rem); margin-inline: auto; }
 
-/* Cabeçalho */
-.top { padding-block: 1.25rem; }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.brand { display: flex; align-items: center; gap: 0.7rem; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; }
-.brand img { width: 2.25rem; height: 2.25rem; border-radius: 0.6rem; }
+.skip { position: absolute; left: 1rem; top: -4rem; z-index: 20; background: var(--surface); color: var(--text); padding: 0.6rem 1rem; border-radius: var(--r-btn); }
+.skip:focus { top: 1rem; }
+
+/* Cabeçalho: fixo no topo, com o botão do app sempre à mão */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  padding-block: 0.85rem;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+.top .wrap { display: flex; align-items: center; gap: 1.5rem; }
+.brand { display: flex; align-items: center; gap: 0.65rem; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; margin-right: auto; }
+.brand img { width: 2.1rem; height: 2.1rem; border-radius: 0.55rem; }
 .brand span { color: var(--green-text); }
-.top nav { display: flex; gap: 1.25rem; font-size: 0.95rem; }
+.top nav { display: flex; gap: 1.5rem; font-size: 0.95rem; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--text); }
 
+/* Botões */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3.25rem; padding: 0 1.4rem; border-radius: var(--r-btn);
+  font-weight: 700; font-size: 1.05rem; text-decoration: none; white-space: nowrap;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.btn-primary { background: var(--green); color: var(--green-ink); }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.btn:hover { filter: brightness(0.95); }
+.btn:active { transform: translateY(1px); }
+.btn-small { min-height: 2.5rem; padding: 0 1rem; font-size: 0.95rem; }
+
 /* Abertura: o ciclo de 2 minutos */
-.hero { padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 8vw, 6rem); }
+.hero { padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(3rem, 7vw, 5.5rem); }
 .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 .hero h1 {
   margin: 0 0 1.25rem;
-  font-size: clamp(2.6rem, 7vw, 5.25rem);
+  font-size: clamp(2.7rem, 7vw, 5.25rem);
   line-height: 1.02;
   letter-spacing: -0.035em;
   font-weight: 700;
   max-width: 11ch;
 }
-.hero p { margin: 0 0 2rem; font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--muted); max-width: var(--measure); }
+.hero p { margin: 0 0 2rem; font-size: clamp(1.15rem, 2vw, 1.3rem); color: var(--muted); max-width: 34rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  min-height: 3.25rem; padding: 0 1.4rem; border-radius: 1rem;
-  font-weight: 700; font-size: 1.05rem; text-decoration: none;
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > *, .cycle { animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-copy > :nth-child(2) { animation-delay: 0.06s; }
+  .hero-copy > :nth-child(3) { animation-delay: 0.12s; }
+  .cycle { animation-delay: 0.1s; }
 }
-.btn-primary { background: var(--green); color: var(--green-ink); }
-.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
-.btn:hover { filter: brightness(0.96); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 .cycle { position: relative; width: min(100%, 22rem); aspect-ratio: 1; margin-inline: auto; }
-.cycle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.cycle::before { content: ''; position: absolute; inset: 9%; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow); }
+.cycle svg { position: relative; width: 100%; height: 100%; transform: rotate(-90deg); }
 .cycle .track { stroke: var(--track); }
-.cycle .arc { stroke: var(--green); stroke-linecap: round; }
+.cycle .arc { stroke: var(--green); stroke-linecap: round; transition: stroke 0.4s ease; }
 .cycle .readout { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 0.25rem; }
-.cycle .caption { font-size: 0.85rem; font-weight: 600; color: var(--green-text); letter-spacing: 0.08em; }
+.cycle .caption { font-size: 0.85rem; font-weight: 600; color: var(--green-text); letter-spacing: 0.08em; transition: color 0.4s ease; }
 .cycle .clock { font-size: clamp(3.4rem, 9vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; }
 .cycle .beat { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; color: var(--muted); font-size: 0.95rem; }
 .cycle .dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--green); }
+.cycle.soon .arc { stroke: var(--blue); }
+.cycle.soon .caption { color: var(--blue-text); }
 @media (prefers-reduced-motion: no-preference) {
   .cycle .dot { animation: beat 545.45ms ease-out infinite; }
 }
 @keyframes beat { 0% { opacity: 1; transform: scale(1.25); } 60%, 100% { opacity: 0.35; transform: scale(1); } }
 
-/* Uma parada, como o app registra */
+/* Destaques logo abaixo da abertura */
+.facts { padding-block: 0 clamp(2.5rem, 6vw, 4rem); }
+.facts dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-block: 1px solid var(--line); }
+.facts dl > div { padding: 1.25rem 1.5rem 1.35rem; }
+.facts dl > div + div { border-left: 1px solid var(--line); }
+.facts dt { font-weight: 700; font-size: 1.05rem; }
+.facts dd { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+
+/* Seções */
 section { padding-block: clamp(3rem, 7vw, 5.5rem); }
 section h2 { margin: 0 0 0.75rem; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1; letter-spacing: -0.025em; max-width: 20ch; }
 section .lead { margin: 0 0 2.5rem; color: var(--muted); max-width: var(--measure); font-size: 1.1rem; }
 .band { background: var(--surface); border-block: 1px solid var(--line); }
 
+/* Uma parada, como o app registra */
 .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
 .timeline { list-style: none; margin: 0; padding: 0; }
-.timeline li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1.25rem; padding-block: 1.1rem; border-top: 1px solid var(--line); }
-.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.timeline li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1.25rem; padding-block: 1.1rem; }
+.timeline li + li { border-top: 1px solid var(--line); }
 .timeline time { font-size: 1.15rem; color: var(--muted); padding-top: 0.1rem; }
 .timeline h3 { margin: 0 0 0.2rem; font-size: 1.15rem; line-height: 1.3; }
 .timeline p { margin: 0; color: var(--muted); max-width: var(--measure); }
@@ -123,30 +174,58 @@ section .lead { margin: 0 0 2.5rem; color: var(--muted); max-width: var(--measur
 .timeline .rhythm time, .timeline .rhythm h3 { color: var(--blue-text); }
 .timeline .end time, .timeline .end h3 { color: var(--green-text); }
 
-.phone { margin: 0; border-radius: 2.2rem; padding: 0.55rem; background: var(--text); box-shadow: 0 1.5rem 3rem -1.5rem rgb(18 22 27 / 0.45); position: sticky; top: 1.5rem; }
-.phone img { border-radius: 1.75rem; width: 100%; }
-.phone figcaption { color: var(--bg); font-size: 0.85rem; text-align: center; padding: 0.6rem 0.4rem 0.3rem; opacity: 0.85; }
+.phone { margin: 0; border-radius: 36px; padding: 0.55rem; background: var(--frame); box-shadow: var(--shadow); position: sticky; top: 6rem; }
+.phone img { border-radius: 28px; width: 100%; }
+.phone figcaption { color: var(--frame-ink); font-size: 0.85rem; text-align: center; padding: 0.6rem 0.4rem 0.3rem; opacity: 0.85; }
 
-.also { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2rem 3rem; margin: 0; }
-.also div { border-top: 3px solid var(--green); padding-top: 0.9rem; }
-.also dt { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
-.also dd { margin: 0; color: var(--muted); }
+/* Recursos: mosaico com telas reais do app */
+.bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 1.25rem; }
+.tile { border-radius: var(--r-block); padding: 1.6rem 1.6rem 1.7rem; overflow: hidden; }
+.tile h3 { margin: 0 0 0.4rem; font-size: 1.25rem; letter-spacing: -0.01em; }
+.tile p { margin: 0; color: var(--muted); }
+.tile-shot { grid-row: span 2; background: var(--surface); border: 1px solid var(--line); display: flex; flex-direction: column; padding-bottom: 0; }
+.tile-shot .screen { margin-top: 1.5rem; flex: 1; min-height: 20rem; border-radius: 22px 22px 0 0; border: 0.45rem solid var(--frame); border-bottom: 0; overflow: hidden; position: relative; }
+.tile-shot .screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shot-algoritmo .screen img { object-position: 50% 30%; }
+.shot-hsts .screen img { object-position: 50% 14%; }
+.tile-green { background: var(--green-tint); align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
+.tile-green h3 { color: var(--green-text); }
+.tile-plain { background: var(--surface2); display: flex; flex-direction: column; justify-content: flex-end; }
+.bento .shot-algoritmo { grid-column: 1; grid-row: 1 / span 2; }
+.bento .tile-green { grid-column: 2; grid-row: 1; }
+.bento .shot-hsts { grid-column: 3; grid-row: 1 / span 2; }
+.bento .tile-plain { grid-column: 2; grid-row: 2; }
 
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
-.split .phone { position: static; max-width: 18rem; margin-inline: auto; }
+/* Privacidade */
+.split { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: clamp(2rem, 7vw, 6rem); align-items: center; }
+.split .phone { position: static; width: 100%; max-width: 18rem; }
+.arrow { font-weight: 600; text-decoration: none; }
+.arrow::after { content: ' →'; }
+.arrow:hover { text-decoration: underline; }
 
-.install { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
-.install article { background: var(--surface); border: 1px solid var(--line); border-radius: 1.25rem; padding: 1.4rem 1.5rem; }
-.install h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
-.install p { margin: 0; color: var(--muted); }
+/* Instalar */
+.install { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem clamp(1.5rem, 5vw, 4rem); margin-bottom: 1.75rem; }
+.install h3 { margin: 0 0 0.9rem; font-size: 1.2rem; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: passo; }
+.steps li { counter-increment: passo; display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0.85rem; align-items: center; padding-block: 0.4rem; line-height: 1.5; }
+.steps li::before {
+  content: counter(passo);
+  font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 600; font-size: 0.95rem;
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: var(--green-tint); color: var(--green-text);
+}
+.guide { margin: 0 0 2.5rem; color: var(--muted); }
+.guide span { display: block; font-size: 0.95rem; }
 
-.notice { border-left: 4px solid var(--blue); padding: 0.25rem 0 0.25rem 1.1rem; color: var(--muted); max-width: var(--measure); }
+.notice { border-left: 4px solid var(--blue); padding: 0.25rem 0 0.25rem 1.1rem; color: var(--muted); max-width: var(--measure); margin: 0; }
 
 /* Rodapé */
 footer { padding-block: 2.5rem 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
 footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: start; }
 footer nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
 footer p { margin: 0 0 0.35rem; }
+.foot-brand { display: flex; align-items: center; gap: 0.5rem; color: var(--text); }
+.foot-brand img { width: 1.5rem; height: 1.5rem; border-radius: 0.4rem; }
 
 /* Páginas de texto (privacidade, termos) */
 .doc { padding-block: 2rem 4rem; }
@@ -157,9 +236,34 @@ footer p { margin: 0 0 0.35rem; }
 .doc p, .doc li { color: var(--text); max-width: var(--measure); }
 .doc li + li { margin-top: 0.35rem; }
 
-@media (max-width: 52rem) {
-  .hero .wrap, .story, .split, footer .wrap { grid-template-columns: minmax(0, 1fr); }
+/* Tablet */
+@media (max-width: 60rem) {
+  .facts dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts dl > div:nth-child(3) { border-left: 0; }
+  .facts dl > div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento .shot-algoritmo { grid-column: 1; grid-row: 1 / span 2; }
+  .bento .tile-green { grid-column: 2; grid-row: 1; }
+  .bento .tile-plain { grid-column: 2; grid-row: 2; }
+  .bento .shot-hsts { grid-column: 1 / span 2; grid-row: 3; }
+  .shot-hsts .screen { min-height: 22rem; }
+}
+
+/* Celular */
+@media (max-width: 48rem) {
+  .top nav { display: none; }
+  .hero .wrap, .story, .split, footer .wrap, .install { grid-template-columns: minmax(0, 1fr); }
   .hero .cycle { order: -1; width: min(70%, 16rem); }
   .phone { position: static; max-width: 18rem; margin-inline: auto; }
-  .top nav { display: none; }
+  .split .phone { order: 1; margin-inline: auto; }
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .bento .tile { grid-column: 1 !important; grid-row: auto !important; }
+  .tile-shot .screen { min-height: 22rem; }
+}
+@media (max-width: 30rem) {
+  .facts dl { grid-template-columns: minmax(0, 1fr); }
+  .facts dl > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .facts dl > div { padding-inline: 0; }
+  .brand { font-size: 1.05rem; }
+  .btn-small { padding: 0 0.85rem; }
 }
