@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://rcpflow.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://rcpflow.com.br/">
-<meta property="og:title" content="RCP Flow · dois minutos de cada vez">
+<meta property="og:title" content="RCP Flow · a equipe cuida do paciente, o app cuida do tempo">
 <meta property="og:description" content="Ciclos, lembretes e registro da parada cardiorrespiratória para a equipe, seguindo a AHA 2025.">
 <meta property="og:image" content="https://rcpflow.com.br/img/og.png">
 <meta property="og:image:width" content="1200">
@@ -17,10 +17,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<meta name="theme-color" content="#eff5fd" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0c0f12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0c0e" media="(prefers-color-scheme: dark)">
 <link rel="preload" href="fonts/Geist_700Bold.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
@@ -28,136 +29,143 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="./" translate="no"><img src="img/apple-touch-icon.png" alt="" width="36" height="36">RCP <span>Flow</span></a>
+    <a class="brand" href="./" translate="no"><img src="img/apple-touch-icon.png" alt="" width="32" height="32">RCP <span>Flow</span></a>
     <nav aria-label="Seções">
       <a href="#como-funciona">Como funciona</a>
       <a href="#recursos">Recursos</a>
       <a href="#instalar">Instalar</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
+    <a class="pill pill-ink" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
   </div>
 </header>
 
 <main id="conteudo">
-  <div class="hero">
+  <section class="hero" aria-labelledby="titulo">
     <div class="wrap">
-      <div class="hero-copy">
-        <h1>Dois minutos de cada vez.</h1>
-        <p>Marca os ciclos, lembra o que vem a seguir e registra a parada cardiorrespiratória, seguindo a AHA 2025.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
-          <a class="btn btn-secondary" href="#instalar">Como instalar</a>
+      <h1 id="titulo">
+        <span class="line"><span>A equipe cuida do paciente.</span></span>
+        <span class="line second"><span>O <b translate="no">RCP Flow</b> cuida do tempo.</span></span>
+      </h1>
+      <div class="hero-body">
+        <div class="hero-copy">
+          <p>Ciclos de 2 minutos, lembretes de ritmo, choque e drogas, e o registro completo da parada, seguindo a AHA 2025.</p>
+          <div class="actions">
+            <a class="pill pill-green pill-lg" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
+            <a class="more" href="#instalar">Como instalar</a>
+          </div>
         </div>
-      </div>
-
-      <div class="cycle" id="cycle" role="img" aria-label="Cronômetro do ciclo: checar o ritmo em 2 minutos, metrônomo em 110 compressões por minuto">
-        <svg viewBox="0 0 200 200" aria-hidden="true">
-          <circle class="track" cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
-          <circle class="arc" id="arc" cx="100" cy="100" r="88" fill="none" stroke-width="12" stroke-dasharray="552.92" stroke-dashoffset="165.9"/>
-        </svg>
-        <div class="readout" aria-hidden="true">
-          <span class="caption" id="caption">CHECAR RITMO EM</span>
-          <span class="clock mono" id="clock">1:24</span>
-          <span class="beat"><span class="dot"></span><span class="mono">110</span>/min</span>
+        <div class="hero-phones" aria-hidden="true">
+          <div class="device device-back">
+            <picture>
+              <source srcset="img/algoritmo-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/algoritmo-light.png" width="780" height="1688" alt="" fetchpriority="high">
+            </picture>
+          </div>
+          <div class="device device-front">
+            <picture>
+              <source srcset="img/checagem-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/checagem-light.png" width="780" height="1688" alt="" fetchpriority="high">
+            </picture>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <section class="facts" aria-label="Destaques">
+  <section class="story" id="como-funciona" aria-labelledby="t-story">
     <div class="wrap">
-      <dl>
-        <div><dt>AHA 2025</dt><dd>Lembretes baseados nas diretrizes de RCP</dd></div>
-        <div><dt>Adulto e pediátrico</dt><dd>Doses e energias calculadas pelo peso</dd></div>
-        <div><dt>Sem internet</dt><dd>Funciona no subsolo, no elevador e na ambulância</dd></div>
-        <div><dt>Sem cadastro</dt><dd>Os registros ficam no seu celular</dd></div>
+      <h2 id="t-story">Uma parada, momento a momento.</h2>
+      <p class="lead">A equipe toca em botões grandes; o app cuida do tempo, dos lembretes e da anotação de cada evento.</p>
+      <div class="story-grid">
+        <ol class="moments">
+          <li data-shot="0"><time class="mono">0:00</time><h3>Início da RCP</h3><p>O cronômetro do ciclo começa e o metrônomo marca o ritmo das compressões, de 100 a 120 por minuto.</p></li>
+          <li data-shot="1" class="rhythm"><time class="mono">0:20</time><h3>Checagem de ritmo: FV</h3><p>Ao marcar um ritmo chocável, aparece o botão de choque com a energia já preenchida. Na linha reta, o app pede para conferir cabos, ganho e derivação.</p></li>
+          <li data-shot="1" class="shock"><time class="mono">0:23</time><h3>Choque 200 J</h3><p>Registrado com um toque. Tocou por engano? Dá para desfazer em até 15 segundos.</p></li>
+          <li data-shot="2" class="drug"><time class="mono">1:15</time><h3>Adrenalina 1 mg</h3><p>O app avisa, com som e voz, quando considerar cada droga, com a dose padrão. No pediátrico, calculada pelo peso.</p></li>
+          <li data-shot="0" class="rhythm"><time class="mono">2:00</time><h3>Fim do ciclo</h3><p>O anel avisa a próxima checagem e sugere quem assume as compressões, pelo rodízio da equipe.</p></li>
+          <li data-shot="3" class="end"><time class="mono">Fim</time><h3>Resumo da parada</h3><p>Fração de compressão, gráfico das pausas, choques e drogas, relatório em PDF e resumo em texto para o WhatsApp.</p></li>
+        </ol>
+        <div class="story-device">
+          <div class="device" id="shots">
+            <picture class="shot is-on">
+              <source srcset="img/parada-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/parada-light.png" width="780" height="1688" loading="lazy" alt="Tela da parada: anel do ciclo com 1:24 para checar o ritmo e metrônomo em 110 por minuto">
+            </picture>
+            <picture class="shot">
+              <source srcset="img/checagem-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/checagem-light.png" width="780" height="1688" loading="lazy" alt="Checagem de ritmo com FV/TVSP marcada e o botão vermelho de choque 200 J">
+            </picture>
+            <picture class="shot">
+              <source srcset="img/drogas-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/drogas-light.png" width="780" height="1688" loading="lazy" alt="Sugestão de adrenalina 1 mg com o botão Registrar">
+            </picture>
+            <picture class="shot">
+              <source srcset="img/resumo-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/resumo-light.png" width="780" height="1688" loading="lazy" alt="Resumo da parada com fração de compressão, gráfico e equipe">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team" id="recursos" aria-labelledby="t-team">
+    <div class="wrap">
+      <h2 id="t-team">Feito para a equipe inteira.</h2>
+      <p class="lead">Do treino com manequim ao relatório para o debriefing.</p>
+      <div class="stages">
+        <article class="stage">
+          <h3>Algoritmo à mão</h3>
+          <p>Esquema do ACLS e do PALS mostrando em que passo a parada está, para conferir o que o app sugere.</p>
+          <div class="device device-peek">
+            <picture>
+              <source srcset="img/algoritmo-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/algoritmo-light.png" width="780" height="1688" loading="lazy" alt="Algoritmo da PCR com o passo atual destacado">
+            </picture>
+          </div>
+        </article>
+        <article class="stage">
+          <h3>Hs e Ts</h3>
+          <p>Causas reversíveis com pistas, condutas e as drogas de cada uma, com a dose do paciente.</p>
+          <div class="device device-peek">
+            <picture>
+              <source srcset="img/hs-ts-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/hs-ts-light.png" width="780" height="1688" loading="lazy" alt="Hipercalemia aberta: pistas, conduta sugerida e drogas com doses">
+            </picture>
+          </div>
+        </article>
+      </div>
+      <dl class="also">
+        <div><dt>Equipe na tela inicial</dt><dd>Líder, via aérea, compressores, monitor, acesso e registro, com os nomes preenchidos antes de começar.</dd></div>
+        <div><dt>Modo instrutor</dt><dd>Cenários de treino com monitor simulado e a nota da equipe ao final.</dd></div>
+        <div><dt>Adulto e pediátrico</dt><dd>Doses e energias do pediátrico calculadas pelo peso, com os limites máximos.</dd></div>
+        <div><dt>Funciona sem internet</dt><dd>Depois de aberto uma vez, funciona no subsolo, no elevador e na ambulância.</dd></div>
       </dl>
     </div>
   </section>
 
-  <section class="band" id="como-funciona">
-    <div class="wrap story">
-      <div>
-        <h2>Uma parada, do jeito que o app registra</h2>
-        <p class="lead">A equipe toca em botões grandes; o app cuida do tempo, dos lembretes e da anotação de cada evento.</p>
-        <ol class="timeline">
-          <li><time class="mono">0:00</time><div><h3>Início da RCP</h3><p>O cronômetro do ciclo começa e o metrônomo marca o ritmo das compressões, de 100 a 120 por minuto.</p></div></li>
-          <li class="rhythm"><time class="mono">0:20</time><div><h3>Checagem de ritmo: FV</h3><p>Ao marcar um ritmo chocável, aparece o botão de choque com a energia já preenchida. Na linha reta, o app pede para conferir cabos, ganho e derivação.</p></div></li>
-          <li class="shock"><time class="mono">0:23</time><div><h3>Choque 200 J</h3><p>Registrado com um toque. Tocou por engano? Dá para desfazer em até 15 segundos.</p></div></li>
-          <li class="drug"><time class="mono">1:15</time><div><h3>Adrenalina 1 mg</h3><p>O app avisa, com som e voz, quando considerar cada droga, com a dose padrão. No pediátrico, calculada pelo peso.</p></div></li>
-          <li class="rhythm"><time class="mono">2:00</time><div><h3>Fim do ciclo</h3><p>O anel avisa a próxima checagem e sugere quem assume as compressões, pelo rodízio da equipe.</p></div></li>
-          <li class="end"><time class="mono">Fim</time><div><h3>Resumo da parada</h3><p>Fração de compressão, gráfico das pausas, choques e drogas, relatório em PDF e resumo em texto para o WhatsApp.</p></div></li>
-        </ol>
-      </div>
-      <figure class="phone">
-        <picture>
-          <source srcset="img/checagem-dark.png" media="(prefers-color-scheme: dark)">
-          <img src="img/checagem-light.png" width="780" height="1688" alt="Tela da checagem de ritmo: FV/TVSP marcada e o botão vermelho de choque 200 J">
-        </picture>
-        <figcaption>Checagem de ritmo com choque indicado</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="recursos">
+  <section class="privacy" aria-labelledby="t-privacy">
     <div class="wrap">
-      <h2>Feito para a equipe inteira</h2>
-      <p class="lead">Do treino com manequim ao relatório para o debriefing.</p>
-      <div class="bento">
-        <article class="tile tile-shot shot-algoritmo">
-          <h3>Algoritmo à mão</h3>
-          <p>Esquema do ACLS e do PALS mostrando em que passo a parada está, para conferir o que o app sugere.</p>
-          <div class="screen">
-            <picture>
-              <source srcset="img/algoritmo-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="img/algoritmo-light.png" width="780" height="1688" loading="lazy" alt="Tela do algoritmo da PCR com o passo atual destacado como Você está aqui">
-            </picture>
-          </div>
-        </article>
-        <article class="tile tile-green">
-          <h3>Equipe na tela inicial</h3>
-          <p>Líder, via aérea, compressores, monitor, acesso e registro, com os nomes preenchidos antes de começar. O app sugere o rodízio das compressões.</p>
-        </article>
-        <article class="tile tile-shot shot-hsts">
-          <h3>Hs e Ts</h3>
-          <p>Causas reversíveis com pistas, condutas e as drogas de cada uma, com a dose do paciente.</p>
-          <div class="screen">
-            <picture>
-              <source srcset="img/hs-ts-dark.png" media="(prefers-color-scheme: dark)">
-              <img src="img/hs-ts-light.png" width="780" height="1688" loading="lazy" alt="Tela de Hs e Ts com a hipercalemia aberta: pistas, conduta sugerida e drogas com doses">
-            </picture>
-          </div>
-        </article>
-        <article class="tile tile-plain">
-          <h3>Modo instrutor</h3>
-          <p>Cenários de treino com monitor simulado e a nota da equipe ao final.</p>
-        </article>
+      <h2 id="t-privacy">Os dados ficam no seu celular.</h2>
+      <div class="privacy-body">
+        <ul class="nots">
+          <li>Sem cadastro.</li>
+          <li>Sem servidor.</li>
+          <li>Sem nome do paciente.</li>
+        </ul>
+        <div>
+          <p>O RCP Flow não tem cadastro nem login e não envia nada para servidores. Não pede nome nem documento do paciente. O relatório só sai do aparelho quando você decide compartilhar.</p>
+          <a class="more" href="privacidade.html">Ler a política de privacidade</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap split">
-      <figure class="phone">
-        <picture>
-          <source srcset="img/resumo-dark.png" media="(prefers-color-scheme: dark)">
-          <img src="img/resumo-light.png" width="780" height="1688" loading="lazy" alt="Resumo da parada com fração de compressão de 99%, gráfico da parada e equipe">
-        </picture>
-        <figcaption>Resumo e gráfico ao final da parada</figcaption>
-      </figure>
-      <div>
-        <h2>Os dados ficam no seu celular</h2>
-        <p class="lead">O RCP Flow não tem cadastro nem login e não envia nada para servidores. Não pede nome nem documento do paciente. O relatório só sai do aparelho quando você decide compartilhar.</p>
-        <p><a class="arrow" href="privacidade.html">Ler a política de privacidade</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section id="instalar">
+  <section class="install" id="instalar" aria-labelledby="t-install">
     <div class="wrap">
-      <h2>Instalar no celular</h2>
+      <h2 id="t-install">Instalar no celular.</h2>
       <p class="lead">Enquanto o app não chega às lojas, use a versão para navegador e coloque o ícone na tela de início.</p>
-      <div class="install">
+      <div class="platforms">
         <div>
           <h3>iPhone</h3>
           <ol class="steps">
@@ -175,8 +183,15 @@
           </ol>
         </div>
       </div>
-      <p class="guide"><a class="arrow" href="rcp-flow-como-instalar.pdf">Baixar o guia ilustrado em PDF</a> <span>com as telas do iPhone e do Android e um QR code do endereço</span></p>
-      <p class="notice">O RCP Flow é uma ferramenta de apoio e registro. Os lembretes são sugestões e não substituem o julgamento clínico da equipe.</p>
+      <p class="guide"><a class="more" href="rcp-flow-como-instalar.pdf">Baixar o guia ilustrado em PDF</a><span>Com as telas do iPhone e do Android e um QR code do endereço.</span></p>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="t-close">
+    <div class="wrap">
+      <h2 id="t-close">Dois minutos de cada vez.</h2>
+      <a class="pill pill-green pill-lg" href="https://rcp-flow.expo.app">Abrir o RCP Flow</a>
+      <p class="disclaimer">O RCP Flow é uma ferramenta de apoio e registro. Os lembretes são sugestões e não substituem o julgamento clínico da equipe.</p>
     </div>
   </section>
 </main>
@@ -184,7 +199,7 @@
 <footer>
   <div class="wrap">
     <div>
-      <p class="foot-brand" translate="no"><img src="img/apple-touch-icon.png" alt="" width="24" height="24"><strong>RCP Flow</strong></p>
+      <p class="foot-brand" translate="no"><img src="img/apple-touch-icon.png" alt="" width="22" height="22"><strong>RCP Flow</strong></p>
       <p>JMLJR SERVICOS MEDICOS LTDA</p>
       <p>Contato: <a href="mailto:contato@rcpflow.com.br">contato@rcpflow.com.br</a></p>
     </div>
@@ -197,36 +212,21 @@
 </footer>
 
 <script>
-  // Um ciclo de 2 minutos em contagem regressiva, como o anel do app: nos últimos 10 segundos fica azul,
-  // a cor da checagem de ritmo. Parado em 1:24 para quem pede menos movimento.
+  // O celular fixo troca de tela conforme cada momento da parada chega ao centro da tela.
   (function () {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    var cycle = document.getElementById('cycle');
-    var arc = document.getElementById('arc');
-    var clock = document.getElementById('clock');
-    var caption = document.getElementById('caption');
-    var total = 120, circ = 552.92, start = performance.now() - 36000, last = -1, running = false;
-    function frame(now) {
-      if (!running) return;
-      var left = total - ((now - start) / 1000) % total;
-      var s = Math.ceil(left);
-      if (s !== last) {
-        last = s;
-        clock.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-        var soon = s <= 10;
-        cycle.classList.toggle('soon', soon);
-        caption.textContent = soon ? 'CHECAR RITMO' : 'CHECAR RITMO EM';
-      }
-      arc.setAttribute('stroke-dashoffset', (circ * (1 - left / total)).toFixed(1));
-      requestAnimationFrame(frame);
+    var items = document.querySelectorAll('.moments li');
+    var shots = document.querySelectorAll('#shots .shot');
+    if (!('IntersectionObserver' in window) || !items.length) return;
+    function activate(li) {
+      items.forEach(function (x) { x.classList.toggle('is-on', x === li); });
+      var n = Number(li.getAttribute('data-shot'));
+      shots.forEach(function (s, i) { s.classList.toggle('is-on', i === n); });
     }
-    // Só anima enquanto o anel está na tela (poupa bateria ao rolar a página).
-    new IntersectionObserver(function (entries) {
-      var visible = entries[0].isIntersecting;
-      if (visible && !running) { running = true; requestAnimationFrame(frame); }
-      running = visible;
-    }).observe(cycle);
+    activate(items[0]);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) activate(e.target); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    items.forEach(function (li) { io.observe(li); });
   })();
 </script>
 </body>
