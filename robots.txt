@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rcpflow.com.br/sitemap.xml

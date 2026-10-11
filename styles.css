@@ -2,10 +2,10 @@
    Fundo clínico claro (escuro no tema escuro), tinta quase preta, um cinza frio como segunda voz e o verde
    só na marca e na ação principal. Vermelho, laranja e azul aparecem só nas telas do app e nos horários da
    linha do tempo. Cantos: ações em pílula, painéis 16px, celular 44px. */
-@font-face { font-family: Geist; font-weight: 400; font-display: swap; src: url(fonts/Geist_400Regular.ttf) format('truetype'); }
-@font-face { font-family: Geist; font-weight: 600; font-display: swap; src: url(fonts/Geist_600SemiBold.ttf) format('truetype'); }
-@font-face { font-family: Geist; font-weight: 700; font-display: swap; src: url(fonts/Geist_700Bold.ttf) format('truetype'); }
-@font-face { font-family: 'Geist Mono'; font-weight: 600; font-display: swap; src: url(fonts/GeistMono_600SemiBold.ttf) format('truetype'); }
+@font-face { font-family: Geist; font-weight: 400; font-display: swap; src: url(fonts/Geist_400Regular.woff2) format('woff2'), url(fonts/Geist_400Regular.ttf) format('truetype'); }
+@font-face { font-family: Geist; font-weight: 600; font-display: swap; src: url(fonts/Geist_600SemiBold.woff2) format('woff2'), url(fonts/Geist_600SemiBold.ttf) format('truetype'); }
+@font-face { font-family: Geist; font-weight: 700; font-display: swap; src: url(fonts/Geist_700Bold.woff2) format('woff2'), url(fonts/Geist_700Bold.ttf) format('truetype'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 600; font-display: swap; src: url(fonts/GeistMono_600SemiBold.woff2) format('woff2'), url(fonts/GeistMono_600SemiBold.ttf) format('truetype'); }
 
 :root {
   color-scheme: light;
@@ -84,13 +84,14 @@ p, dd, li { text-wrap: pretty; }
 }
 .pill:active { transform: scale(0.97); }
 .pill-ink { background: var(--ink); color: var(--bg); }
-.pill-ink:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); }
+@media (hover: hover) {
+  .pill-ink:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); }
+  }
 .pill-green { background: var(--green); color: var(--green-ink); }
-.pill-green:hover { background: color-mix(in srgb, var(--green) 88%, var(--ink)); box-shadow: 0 0.6rem 1.4rem -0.6rem color-mix(in srgb, var(--green) 70%, transparent); }
 .pill-lg { min-height: 3.4rem; padding: 0 1.75rem; font-size: 1.08rem; font-weight: 700; }
 .more { font-weight: 600; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 0.35rem; }
 .more::after { content: ''; width: 0.45rem; height: 0.45rem; border-right: 2px solid currentColor; border-top: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.2s var(--ease); }
-.more:hover::after { transform: translateX(3px) rotate(45deg); }
+@media (hover: hover) and (pointer: fine) { .more:hover::after { transform: translateX(3px) rotate(45deg); } }
 
 /* Cabeçalho */
 .top {
@@ -130,9 +131,9 @@ p, dd, li { text-wrap: pretty; }
 @media (prefers-reduced-motion: no-preference) {
   .js .hero .line > span { display: inline-block; animation: lift 0.9s var(--ease) both; }
   .js .hero .second > span { animation-delay: 0.08s; }
-  .js .hero-copy { animation: fade 0.9s var(--ease) 0.2s both; }
-  .js .device-front { animation: rise 1.1s var(--ease) 0.15s both; }
-  .js .device-back { animation: rise 1.1s var(--ease) 0.28s both; }
+  .js .hero-copy { animation: fade 0.6s var(--ease) 0.1s both; }
+  .js .device-front { animation: rise 1s var(--ease) 0.05s both; }
+  .js .device-back { animation: rise 1s var(--ease) 0.15s both; }
 }
 @keyframes lift { from { opacity: 0; transform: translateY(0.35em); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
@@ -156,8 +157,9 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 .moments .shock time { color: var(--red-text); }
 .moments .drug time { color: var(--orange-text); }
 .moments .end time { color: var(--green-text); }
-.js .moments li { transition: opacity 0.5s var(--ease); }
-.js .moments li:not(.is-on) { opacity: 0.38; }
+/* O momento fora do centro perde o destaque (título e horário em cinza) sem ficar transparente: o texto mantém o contraste. */
+.js .moments h3, .js .moments time { transition: color 0.4s ease; }
+.js .moments li:not(.is-on) h3, .js .moments li:not(.is-on) time { color: var(--ink-2); }
 @media (min-width: 50rem) {
   .js .moments li { min-height: 42vh; align-content: center; }
 }
@@ -178,7 +180,7 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 .stage h3 { margin: 0 0 0.4rem; font-size: 1.5rem; letter-spacing: -0.02em; }
 .stage p { margin: 0; color: var(--ink-2); max-width: 26rem; }
 .device-peek { width: min(19rem, 72%); margin: 2rem auto 0; flex: none; }
-.stage:hover .device-peek { transform: translateY(-6px); }
+@media (hover: hover) and (pointer: fine) { .stage:hover .device-peek { transform: translateY(-6px); } }
 .device-peek { transition: transform 0.5s var(--ease); }
 .also { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin: clamp(3rem, 6vw, 4.5rem) 0 0; }
 .also div { border-top: 1px solid var(--line); padding-top: 1.1rem; }
@@ -261,7 +263,11 @@ footer p { margin: 0 0 0.35rem; }
   .moments li { grid-template-columns: minmax(0, 1fr); padding-block: 1.75rem; }
   .moments time { grid-row: auto; font-size: 1.1rem; margin-bottom: 0.2rem; }
   .moments h3 { font-size: 1.2rem; }
-  .js .moments li:not(.is-on) { opacity: 1; }
+  .js .moments li:not(.is-on) h3 { color: var(--ink); }
+  .js .moments .rhythm:not(.is-on) time { color: var(--blue-text); }
+  .js .moments .shock:not(.is-on) time { color: var(--red-text); }
+  .js .moments .drug:not(.is-on) time { color: var(--orange-text); }
+  .js .moments .end:not(.is-on) time { color: var(--green-text); }
   .moment-shot { display: block; margin-top: 1.5rem; height: 23rem; padding-top: 1.75rem; overflow: hidden; background: var(--panel-2); border-radius: 16px; }
   .moment-shot .device { width: min(16.5rem, 76%); margin-inline: auto; }
   .stages { grid-template-columns: minmax(0, 1fr); }
@@ -271,4 +277,11 @@ footer p { margin: 0 0 0.35rem; }
 @media (max-width: 26rem) {
   .brand { font-size: 1rem; }
   .pill { padding: 0 0.9rem; }
+}
+
+/* Movimento reduzido: ficam as trocas de cor e de opacidade; saem os deslocamentos e as escalas. */
+@media (prefers-reduced-motion: reduce) {
+  .pill, .device-peek, .more::after { transition-property: background-color, box-shadow; }
+  .pill:active, .js .shot, .stage:hover .device-peek { transform: none; }
+  .more:hover::after { transform: rotate(45deg); }
 }
