@@ -123,6 +123,7 @@ p, dd, li { text-wrap: pretty; }
 .hero-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2rem; align-items: start; margin-top: clamp(2rem, 4vw, 3.25rem); }
 .hero-copy p { margin: 0 0 2rem; font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.5; color: var(--ink-2); max-width: 30rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
+.hero-copy .hero-note { margin: 1.25rem 0 0; font-size: 0.95rem; line-height: 1.5; }
 .hero-phones { position: relative; height: clamp(24rem, 38vw, 33rem); }
 .hero-phones .device { position: absolute; width: clamp(12rem, 20vw, 17.5rem); }
 .device-front { right: 6%; top: 0; z-index: 2; }
@@ -211,6 +212,16 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 .guide { margin: 2.5rem 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; color: var(--ink-2); }
 .guide span { font-size: 0.95rem; }
 
+/* Perguntas frequentes: título à esquerda, perguntas todas abertas à direita (sem sanfona) */
+.faq { border-top: 1px solid var(--line); }
+.faq-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.faq h2 { position: sticky; top: 6.5rem; margin: 0; max-width: 10ch; }
+.qa { margin: 0; }
+.qa div { padding-block: 1.5rem; border-top: 1px solid var(--line); }
+.qa div:last-child { border-bottom: 1px solid var(--line); }
+.qa dt { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.015em; line-height: 1.3; }
+.qa dd { margin: 0.45rem 0 0; color: var(--ink-2); max-width: var(--measure); }
+
 /* Fecho */
 .close { padding-block: clamp(5rem, 11vw, 9rem); border-top: 1px solid var(--line); }
 .close h2 { font-size: clamp(2.6rem, 6.2vw, 6rem); letter-spacing: -0.04em; max-width: 22ch; text-wrap: balance; margin-bottom: 2rem; }
@@ -272,7 +283,9 @@ footer p { margin: 0 0 0.35rem; }
   .moment-shot .device { width: min(16.5rem, 76%); margin-inline: auto; }
   .stages { grid-template-columns: minmax(0, 1fr); }
   .stage { height: 30rem; }
-  .also, .privacy-body, .platforms, footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .also, .privacy-body, .platforms, .faq-grid, footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .faq h2 { position: static; max-width: 18ch; }
+  .faq-grid { gap: 2rem; }
 }
 @media (max-width: 26rem) {
   .brand { font-size: 1rem; }
