@@ -107,6 +107,7 @@ p, dd, li { text-wrap: pretty; }
 .top nav { display: flex; gap: 1.75rem; font-size: 0.92rem; }
 .top nav a { color: var(--ink-2); text-decoration: none; }
 .top nav a:hover { color: var(--ink); }
+.top nav a[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 1.5px; text-underline-offset: 0.5em; }
 
 /* Celular: a moldura é a mesma em todo o site */
 .device { position: relative; background: var(--frame); border-radius: 44px; padding: 10px; box-shadow: var(--shadow-device); }
@@ -167,6 +168,8 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 .js .shot:first-child { position: relative; inset: auto; }
 .js .shot.is-on { opacity: 1; transform: none; }
 .shot img { width: 100%; }
+/* No celular, cada momento leva a própria tela (ver "Celular" abaixo); o aparelho fixo fica só nas telas largas. */
+.moment-shot { display: none; }
 
 /* Para a equipe inteira */
 .team { background: var(--panel); border-block: 1px solid var(--line); }
@@ -230,6 +233,11 @@ footer p { margin: 0 0 0.35rem; }
 .doc li + li { margin-top: 0.35rem; }
 .doc a { color: var(--green-text); }
 
+/* Página não encontrada (404.html) */
+.lost { min-height: 70vh; min-height: 70dvh; display: grid; align-content: center; padding-block: clamp(4rem, 10vw, 7rem); }
+.lost h1 { margin: 0 0 1.25rem; font-size: clamp(2.6rem, 6.2vw, 6rem); line-height: 1.02; letter-spacing: -0.04em; font-weight: 700; max-width: 14ch; }
+.lost p { margin: 0 0 2rem; color: var(--ink-2); max-width: 30rem; font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.5; }
+
 /* Tablet */
 @media (max-width: 62rem) {
   .also { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -248,15 +256,14 @@ footer p { margin: 0 0 0.35rem; }
   .device-back { right: auto; left: 2%; top: 3.5rem; width: 11.5rem !important; }
   .device { border-radius: 34px; padding: 7px; }
   .device img { border-radius: 27px; }
-  .story-grid { grid-template-columns: minmax(0, 1fr) 7.5rem; gap: 1rem; }
-  .moments li { grid-template-columns: minmax(0, 1fr); padding-block: 1.25rem; }
+  .story-grid { grid-template-columns: minmax(0, 1fr); }
+  .story-device { display: none; }
+  .moments li { grid-template-columns: minmax(0, 1fr); padding-block: 1.75rem; }
   .moments time { grid-row: auto; font-size: 1.1rem; margin-bottom: 0.2rem; }
-  .moments h3 { font-size: 1.12rem; }
-  .moments p { font-size: 0.97rem; }
-  .js .moments li { min-height: 46vh; align-content: center; }
-  .story-device .device { top: calc(50vh - 8rem); border-radius: 22px; padding: 5px; }
-  .story-device .device img { border-radius: 18px; }
-  .js .shot { inset: 5px; }
+  .moments h3 { font-size: 1.2rem; }
+  .js .moments li:not(.is-on) { opacity: 1; }
+  .moment-shot { display: block; margin-top: 1.5rem; height: 23rem; padding-top: 1.75rem; overflow: hidden; background: var(--panel-2); border-radius: 16px; }
+  .moment-shot .device { width: min(16.5rem, 76%); margin-inline: auto; }
   .stages { grid-template-columns: minmax(0, 1fr); }
   .stage { height: 30rem; }
   .also, .privacy-body, .platforms, footer .wrap { grid-template-columns: minmax(0, 1fr); }

@@ -18,4 +18,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { rootMargin: '-45% 0px -50% 0px' });
     items.forEach(function (li) { io.observe(li); });
   })();
+
+  // O menu do topo marca a seção que está no meio da tela.
+  (function () {
+    var links = document.querySelectorAll('.top nav a');
+    var sections = document.querySelectorAll('main > section');
+    if (!('IntersectionObserver' in window) || !links.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
+  })();
 });
