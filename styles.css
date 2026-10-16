@@ -292,35 +292,72 @@ footer p { margin: 0 0 0.35rem; }
   .pill { padding: 0 0.9rem; }
 }
 
-/* Movimento ao rolar (só com JS e sem pedido de movimento reduzido) */
-@media (prefers-reduced-motion: no-preference) {
-  /* Cada bloco entra de baixo quando chega à tela; --i escalona os itens de uma mesma lista. */
-  .js .rv { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js .rv.is-in { opacity: 1; transform: none; }
-  .js .nots .rv { transform: translateX(-1.25rem); }
-  .js .nots .rv.is-in { transform: none; }
-  .js .steps .rv::before { transform: scale(0.4); transition: transform 0.5s var(--ease) calc(var(--i, 0) * 80ms + 150ms); }
-  .js .steps .rv.is-in::before { transform: none; }
+/* Relógio da parada (criado pelo main.js): o tempo da linha do tempo, o ciclo de 2 minutos e o evento atual. */
+.clock {
+  --k: var(--ink-2);
+  font-size: 0.85rem; color: var(--ink-2);
+  background: color-mix(in srgb, var(--panel) 96%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(14px); backdrop-filter: saturate(180%) blur(14px);
+  border: 1px solid var(--line); border-radius: 16px; padding: 0.8rem 1rem 0.95rem;
+  box-shadow: 0 1rem 2rem -1.25rem rgb(22 34 48 / 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.clock[data-kind="rhythm"] { --k: var(--blue-text); }
+.clock[data-kind="shock"] { --k: var(--red-text); }
+.clock[data-kind="drug"] { --k: var(--orange-text); }
+.clock[data-kind="end"] { --k: var(--green-text); }
+.clock:not([data-kind=""]) { border-color: color-mix(in srgb, var(--k) 45%, var(--line)); }
+.clock-head { display: flex; justify-content: space-between; gap: 1rem; white-space: nowrap; }
+.clock-event { color: var(--k); font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.clock-time { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin: 0.15rem 0 0.6rem; transition: color 0.3s ease; }
+.clock:not([data-kind=""]) .clock-time { color: var(--k); }
+.clock-track { position: relative; height: 4px; border-radius: 4px; background: var(--panel-2); }
+.clock-fill { position: absolute; inset: 0; border-radius: inherit; background: var(--green); transform: scaleX(0); transform-origin: left; }
+.clock-mark { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink-3); transform: scale(0.6); opacity: 0.5; transition: transform 0.35s var(--ease), opacity 0.35s ease, background-color 0.35s ease; }
+.clock-mark.shock { border-color: var(--red-text); }
+.clock-mark.drug { border-color: var(--orange-text); }
+.clock-mark.is-on { transform: none; opacity: 1; }
+.clock-mark.is-out { opacity: 0; }
+.clock-mark.shock.is-on { background: var(--red-text); }
+.clock-mark.drug.is-on { background: var(--orange-text); }
+/* Computador: sobre o celular fixo, que já acompanha a rolagem. */
+#shots .clock { position: absolute; left: -1.5rem; right: -1.5rem; bottom: calc(100% + 1rem); z-index: 3; }
+/* Celular: preso logo abaixo do cabeçalho enquanto a linha do tempo passa. */
+.story-grid > .clock { position: sticky; top: 4.75rem; z-index: 5; margin-bottom: 0.5rem; }
+.story-grid > .clock .clock-time { font-size: 2rem; margin-bottom: 0.45rem; }
+@media (min-width: 48.01rem) {
+  .story-device .device { top: max(10rem, calc(50vh - 14rem)); }
+}
 
-  /* Linha do tempo: a borda do momento atual se enche, da esquerda para a direita, na cor dele. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Ao acender um evento, o relógio dá um pulso na cor dele. */
+  .clock.flash { animation: flash 0.7s var(--ease); }
+  .clock.flash .clock-time { animation: tick 0.45s var(--ease); }
+
+  /* Linha do tempo: a borda do momento atual se enche na cor dele. */
   .js .moments li { position: relative; }
-  .js .moments li::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--ink-2); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease); }
+  .js .moments li::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--ink-3); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease); }
   .js .moments .rhythm::before { background: var(--blue-text); }
   .js .moments .shock::before { background: var(--red-text); }
   .js .moments .drug::before { background: var(--orange-text); }
   .js .moments .end::before { background: var(--green-text); }
   .js .moments li.is-on::before { transform: none; }
-  .js .moments li.is-on time { animation: tick 0.5s var(--ease); }
 
-  /* Botão principal da abertura: três batidas a 110 por minuto, como o metrônomo, depois para. */
-  .js .hero .pill-green { position: relative; isolation: isolate; }
-  .js .hero .pill-green::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--green); z-index: -1; opacity: 0; animation: beat 0.545s ease-out 1.1s 3; }
+  /* Listas lidas em sequência: cada item sai de uma máscara, um depois do outro. */
+  .seq > li { clip-path: inset(0 100% 0 0); opacity: 0; transition: clip-path 0.7s var(--ease), opacity 0.4s ease; transition-delay: calc(var(--i, 0) * 140ms); }
+  .seq.is-in > li { clip-path: inset(0 -1rem 0 0); opacity: 1; }
+  .steps.seq > li::before { transform: scale(0.3); transition: transform 0.5s var(--ease) calc(var(--i, 0) * 140ms + 200ms); }
+  .steps.seq.is-in > li::before { transform: none; }
 
-  /* Celulares da abertura: o de trás sobe mais devagar que o da frente ao rolar. */
-  .js .hero-phones .device { translate: 0 var(--py, 0); will-change: translate; }
+  /* Botões verdes de abertura e fecho: três batidas a 110 por minuto, como o metrônomo, depois param. */
+  .js .hero .pill-green, .js .close .pill-green { position: relative; isolation: isolate; }
+  .js .hero .pill-green::after, .js .close .pill-green::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--green); z-index: -1; opacity: 0; }
+  .js .hero .pill-green::after { animation: beat 0.545s ease-out 1.1s 3; }
+  .js .close .pill-green.beat::after { animation: beat 0.545s ease-out 0.3s 3; }
 }
-@keyframes tick { from { opacity: 0.3; transform: translateY(0.3em); } to { opacity: 1; transform: none; } }
-@keyframes beat { 0% { opacity: 0.45; transform: scale(1); } 100% { opacity: 0; transform: scale(1.35, 1.6); } }
+@keyframes tick { from { opacity: 0.35; transform: translateY(0.25em); } to { opacity: 1; transform: none; } }
+@keyframes beat { 0% { opacity: 0.45; transform: scale(1); } 100% { opacity: 0; transform: scale(1.3, 1.55); } }
+@keyframes flash { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--k) 45%, transparent), 0 1rem 2rem -1.25rem rgb(22 34 48 / 0.35); } 100% { box-shadow: 0 0 0 14px color-mix(in srgb, var(--k) 0%, transparent), 0 1rem 2rem -1.25rem rgb(22 34 48 / 0.35); } }
 
 /* Movimento reduzido: ficam as trocas de cor e de opacidade; saem os deslocamentos e as escalas. */
 @media (prefers-reduced-motion: reduce) {
