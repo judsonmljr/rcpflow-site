@@ -292,6 +292,36 @@ footer p { margin: 0 0 0.35rem; }
   .pill { padding: 0 0.9rem; }
 }
 
+/* Movimento ao rolar (só com JS e sem pedido de movimento reduzido) */
+@media (prefers-reduced-motion: no-preference) {
+  /* Cada bloco entra de baixo quando chega à tela; --i escalona os itens de uma mesma lista. */
+  .js .rv { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+  .js .rv.is-in { opacity: 1; transform: none; }
+  .js .nots .rv { transform: translateX(-1.25rem); }
+  .js .nots .rv.is-in { transform: none; }
+  .js .steps .rv::before { transform: scale(0.4); transition: transform 0.5s var(--ease) calc(var(--i, 0) * 80ms + 150ms); }
+  .js .steps .rv.is-in::before { transform: none; }
+
+  /* Linha do tempo: a borda do momento atual se enche, da esquerda para a direita, na cor dele. */
+  .js .moments li { position: relative; }
+  .js .moments li::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--ink-2); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease); }
+  .js .moments .rhythm::before { background: var(--blue-text); }
+  .js .moments .shock::before { background: var(--red-text); }
+  .js .moments .drug::before { background: var(--orange-text); }
+  .js .moments .end::before { background: var(--green-text); }
+  .js .moments li.is-on::before { transform: none; }
+  .js .moments li.is-on time { animation: tick 0.5s var(--ease); }
+
+  /* Botão principal da abertura: três batidas a 110 por minuto, como o metrônomo, depois para. */
+  .js .hero .pill-green { position: relative; isolation: isolate; }
+  .js .hero .pill-green::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--green); z-index: -1; opacity: 0; animation: beat 0.545s ease-out 1.1s 3; }
+
+  /* Celulares da abertura: o de trás sobe mais devagar que o da frente ao rolar. */
+  .js .hero-phones .device { translate: 0 var(--py, 0); will-change: translate; }
+}
+@keyframes tick { from { opacity: 0.3; transform: translateY(0.3em); } to { opacity: 1; transform: none; } }
+@keyframes beat { 0% { opacity: 0.45; transform: scale(1); } 100% { opacity: 0; transform: scale(1.35, 1.6); } }
+
 /* Movimento reduzido: ficam as trocas de cor e de opacidade; saem os deslocamentos e as escalas. */
 @media (prefers-reduced-motion: reduce) {
   .pill, .device-peek, .more::after { transition-property: background-color, box-shadow; }
