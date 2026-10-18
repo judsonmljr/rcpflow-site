@@ -1,7 +1,58 @@
 // Script do site (arquivo próprio para a política de segurança proibir scripts embutidos na página).
 document.documentElement.classList.add('js');
 
+// Tema claro ou escuro: segue o sistema até a pessoa escolher no botão; a escolha fica guardada neste aparelho.
+var tema = (function () {
+  var root = document.documentElement;
+  var dark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  var saved = null;
+  try { saved = localStorage.getItem('tema'); } catch (e) {}
+  if (saved !== 'light' && saved !== 'dark') saved = null;
+  function current() { return saved || (dark && dark.matches ? 'dark' : 'light'); }
+  function paint() {
+    var t = current();
+    if (saved) root.setAttribute('data-theme', saved); else root.removeAttribute('data-theme');
+    root.classList.toggle('is-dark', t === 'dark');
+    // As telas do app em <picture> e a cor da barra do navegador acompanham a escolha.
+    document.querySelectorAll('source[data-dark]').forEach(function (s) {
+      s.setAttribute('media', saved ? (saved === 'dark' ? 'all' : 'not all') : '(prefers-color-scheme: dark)');
+    });
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+      var isDarkMeta = /dark/.test(m.getAttribute('data-scheme') || m.getAttribute('media') || '');
+      if (!m.hasAttribute('data-scheme')) m.setAttribute('data-scheme', isDarkMeta ? 'dark' : 'light');
+      m.setAttribute('media', saved ? (isDarkMeta === (saved === 'dark') ? 'all' : 'not all') : '(prefers-color-scheme: ' + m.getAttribute('data-scheme') + ')');
+    });
+    var b = document.querySelector('.theme');
+    if (b) b.setAttribute('aria-label', t === 'dark' ? 'Usar tema claro' : 'Usar tema escuro');
+  }
+  function toggle() {
+    saved = current() === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('tema', saved); } catch (e) {}
+    paint();
+  }
+  if (dark && dark.addEventListener) dark.addEventListener('change', paint);
+  paint();
+  return { paint: paint, toggle: toggle };
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
+  // Botão do tema no cabeçalho, ao lado do botão principal.
+  (function () {
+    document.querySelectorAll('source[media="(prefers-color-scheme: dark)"]').forEach(function (s) { s.setAttribute('data-dark', ''); });
+    var wrap = document.querySelector('.top .wrap');
+    if (wrap) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'theme';
+      b.innerHTML = '<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
+        '<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>';
+      b.addEventListener('click', tema.toggle);
+      var cta = wrap.querySelector('.pill');
+      wrap.insertBefore(b, cta || null);
+    }
+    tema.paint();
+  })();
+
   // O celular fixo troca de tela conforme cada momento da parada chega ao centro da tela.
   (function () {
     var items = document.querySelectorAll('.moments li');
