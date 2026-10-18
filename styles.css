@@ -82,7 +82,9 @@ p, dd, li { text-wrap: pretty; }
   font-weight: 600; font-size: 0.95rem; text-decoration: none; white-space: nowrap;
   transition: transform 0.2s var(--ease), background-color 0.2s ease, box-shadow 0.2s ease;
 }
-.pill:active { transform: scale(0.97); }
+.pill:active { transform: scale(0.97); transition-duration: 0.1s; }
+.more:active { opacity: 0.6; }
+.more { transition: opacity 0.1s ease; }
 .pill-ink { background: var(--ink); color: var(--bg); }
 @media (hover: hover) {
   .pill-ink:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); }
@@ -99,13 +101,15 @@ p, dd, li { text-wrap: pretty; }
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   backdrop-filter: saturate(180%) blur(16px);
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
+.top.is-scrolled { border-bottom-color: color-mix(in srgb, var(--line) 70%, transparent); }
 .top .wrap { display: flex; align-items: center; gap: 2rem; min-height: 4rem; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.08rem; letter-spacing: -0.01em; margin-right: auto; }
 .brand img { width: 2rem; height: 2rem; border-radius: 0.5rem; }
 .brand span { color: var(--green-text); }
-.top nav { display: flex; gap: 1.75rem; font-size: 0.92rem; }
+.top nav { display: flex; gap: 1.75rem; font-size: 0.92rem; letter-spacing: 0.005em; }
 .top nav a { color: var(--ink-2); text-decoration: none; }
 .top nav a:hover { color: var(--ink); }
 .top nav a[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 1.5px; text-underline-offset: 0.5em; }
@@ -228,7 +232,7 @@ section .lead { margin: 0 0 clamp(2.5rem, 5vw, 4rem); color: var(--ink-2); max-w
 .disclaimer { margin: 3rem 0 0; color: var(--ink-2); font-size: 0.92rem; max-width: 34rem; }
 
 /* Rodapé */
-footer { padding-block: 2.5rem 3rem; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 0.92rem; }
+footer { padding-block: 2.5rem 3rem; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 0.92rem; letter-spacing: 0.005em; }
 footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: start; }
 footer nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
 footer a { color: var(--ink-2); }
@@ -260,8 +264,11 @@ footer p { margin: 0 0 0.35rem; }
 /* Celular */
 @media (max-width: 48rem) {
   .wrap { width: min(76rem, 100% - 2.5rem); }
-  .top nav { display: none; }
-  .top .wrap { gap: 1rem; }
+  .story-grid > .clock { top: 6.9rem; }
+  .top .wrap { gap: 0 1rem; flex-wrap: wrap; min-height: 3.5rem; padding-top: 0.25rem; }
+  .top nav { order: 3; width: 100%; gap: 1.4rem; font-size: 0.88rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.6rem; white-space: nowrap; }
+  .top nav::-webkit-scrollbar { display: none; }
+  html { scroll-padding-top: 7rem; }
   .hero-body { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
   .hero-phones { height: 25rem; }
   .hero-phones .device { width: 13rem; }
@@ -307,7 +314,7 @@ footer p { margin: 0 0 0.35rem; }
 .clock[data-kind="drug"] { --k: var(--orange-text); }
 .clock[data-kind="end"] { --k: var(--green-text); }
 .clock:not([data-kind=""]) { border-color: color-mix(in srgb, var(--k) 45%, var(--line)); }
-.clock-head { display: flex; justify-content: space-between; gap: 1rem; white-space: nowrap; }
+.clock-head { letter-spacing: 0.01em; font-weight: 600; display: flex; justify-content: space-between; gap: 1rem; white-space: nowrap; }
 .clock-event { color: var(--k); font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
 .clock-time { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin: 0.15rem 0 0.6rem; transition: color 0.3s ease; }
 .clock:not([data-kind=""]) .clock-time { color: var(--k); }
@@ -361,7 +368,20 @@ footer p { margin: 0 0 0.35rem; }
 
 /* Movimento reduzido: ficam as trocas de cor e de opacidade; saem os deslocamentos e as escalas. */
 @media (prefers-reduced-motion: reduce) {
+  .seq > li { opacity: 0; transition: opacity 0.25s ease; }
+  .seq.is-in > li { opacity: 1; }
   .pill, .device-peek, .more::after { transition-property: background-color, box-shadow; }
   .pill:active, .js .shot, .stage:hover .device-peek { transform: none; }
   .more:hover::after { transform: rotate(45deg); }
+}
+
+/* Menos transparência: superfícies translúcidas ficam sólidas. */
+@media (prefers-reduced-transparency: reduce) {
+  .top, .clock { background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+/* Mais contraste: fundos sólidos e bordas definidas. */
+@media (prefers-contrast: more) {
+  .top, .clock { background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; border-color: var(--ink-2); }
+  .top { border-bottom-color: var(--ink-2); }
+  .moments li, .qa div, .also div { border-color: var(--ink-3); }
 }

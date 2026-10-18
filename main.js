@@ -147,9 +147,18 @@ document.addEventListener('DOMContentLoaded', function () {
     onScroll();
   })();
 
-  // Listas que se leem em sequência entram item por item (as negativas da privacidade e os passos de instalação).
+  // Cabeçalho: a linha de baixo só aparece quando o conteúdo passa por baixo dele.
   (function () {
-    if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var top = document.querySelector('.top');
+    if (!top) return;
+    function edge() { top.classList.toggle('is-scrolled', window.scrollY > 4); }
+    window.addEventListener('scroll', edge, { passive: true });
+    edge();
+  })();
+
+  // Listas que se leem em sequência entram item por item (as negativas da privacidade e os passos de instalação).
+  // Com movimento reduzido, os itens só aparecem num fade curto (ver o CSS).
+  (function () {
     if (!('IntersectionObserver' in window)) return;
     var lists = document.querySelectorAll('.nots, .steps');
     var io = new IntersectionObserver(function (entries) {
